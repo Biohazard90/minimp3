@@ -733,7 +733,6 @@ int mp3dec_ex_seek(mp3dec_ex_t *dec, uint64_t position)
         goto do_exit;
     }
     dec->cur_sample = position;
-    position += dec->start_delay;
     if (0 == position)
     {   /* optimize seek to zero, no index needed */
 seek_zero:
@@ -741,6 +740,7 @@ seek_zero:
         dec->to_skip = 0;
         goto do_exit;
     }
+    position += dec->start_delay;
     if (!dec->indexes_built)
     {   /* no index created yet (vbr tag used to calculate track length or MP3D_DO_NOT_SCAN open flag used) */
         dec->indexes_built = 1;
